@@ -39,7 +39,6 @@ class PersonTask(Resource):
     def get(self):
         cursor = connection.cursor()
         data=cursor.execute('select *From PersonTable ')
-        #Fabiano Ozahata
         query_results=[dict(line) for line in [zip([column[0] for column in cursor.description], row) for row in cursor.fetchall()]]
         return query_results
 api.add_resource(HelloWorld , "/helloworld/<string:name>")
