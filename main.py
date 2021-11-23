@@ -26,6 +26,11 @@ def SelectTable (id):
     query_results = [dict(line) for line in
                      [zip([column[0] for column in cursor.description], row) for row in cursor.fetchall()]]
     return jsonify(query_results)
+@app.route("/dtx/delete/<id>")
+def DeleteTable (id):
+    cursor = connection.cursor()
+    data = cursor.execute('Delete from PersonTable where Id=?', id)
+    return redirect(url_for(RengersSlot()))
 @app.route('/Ipsecurity')
 def Resurs():
     IpAdre={}
