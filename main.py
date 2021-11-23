@@ -1,4 +1,3 @@
-import sqlalchemy
 from flask import Flask, url_for, redirect, render_template, request,jsonify
 from flask_restful import Api, Resource
 from collections import*
@@ -24,7 +23,6 @@ def  RengersSlot():
 def SelectTable (id):
     cursor = connection.cursor()
     data = cursor.execute('select *From PersonTable where Id=?', id)
-    # Fabiano Ozahata
     query_results = [dict(line) for line in
                      [zip([column[0] for column in cursor.description], row) for row in cursor.fetchall()]]
     return jsonify(query_results)
