@@ -13,7 +13,7 @@ class HelloWorld(Resource):
     def get(self,name):
         return {"data":"HelloWorld", "name":name}
 @app.route("/dtx")
-def  RengersSlot():
+def  PerTable():
     cursor = connection.cursor()
     data = cursor.execute('select *From PersonTable ')
     # Fabiano Ozahata
@@ -30,12 +30,8 @@ def SelectTable (id):
 def DeleteTable (id):
     cursor = connection.cursor()
     data = cursor.execute('Delete from PersonTable where Id=?', id)
-    return redirect(url_for(RengersSlot()))
-@app.route('/Ipsecurity')
-def Resurs():
-    IpAdre={}
-    IpAdre["Adres"].append(list(ip_network('192.0.2.0/31').hosts()))
-    return jsonify(IpAdre)
+    return redirect(url_for("PerTable"))
+
 class PersonList(Resource):
     def get(self,name):
         return names[name]
