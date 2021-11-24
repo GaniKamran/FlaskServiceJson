@@ -7,30 +7,30 @@ import json
 connection = pyodbc.connect('Driver={SQL Server};' 'Server=QENI\FG;' 'Database=DataPersonal;' 'Trusted_connection=yes;')
 app = Flask(__name__)
 api = Api(app)
-names={"tim":{"age":19 , "gender": "male" },
-       "jacob":{"age":22,"gender":"male"}}
-class HelloWorld(Resource):
-    def get(self,name):
-        return {"data":"HelloWorld", "name":name}
-@app.route("/dtx")
-def  PerTable():
+@app.route("/adding")
+def  RengersSlot():
     cursor = connection.cursor()
     data = cursor.execute('select *From PersonTable ')
     # Fabiano Ozahata
     query_results = [dict(line) for line in [zip([column[0] for column in cursor.description], row) for row in cursor.fetchall()]]
     return jsonify(query_results)
-@app.route("/dtx/<id>")
+@app.route("/<id>")
 def SelectTable (id):
     cursor = connection.cursor()
     data = cursor.execute('select *From PersonTable where Id=?', id)
     query_results = [dict(line) for line in
                      [zip([column[0] for column in cursor.description], row) for row in cursor.fetchall()]]
     return jsonify(query_results)
-@app.route("/dtx/delete/<id>")
+@app.route("/delete/<id>")
 def DeleteTable (id):
     cursor = connection.cursor()
     data = cursor.execute('Delete from PersonTable where Id=?', id)
-    return redirect(url_for("PerTable"))
+    return redirect(url_for("RengersSlot"))
+@app.route("/add/<dictionary>")
+def addelements(AddElmts):
+    cursor=connection.cursor()
+    data = cursor.execute('Insert into PersonTable(Name, Surname,) values(?,?);',(AddElmts["Name"],AddElmts["Surname"]))
+    return redirect(url_for("RengersSlot"))
 
 class PersonList(Resource):
     def get(self,name):
