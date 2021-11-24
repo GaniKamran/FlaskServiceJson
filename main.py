@@ -41,7 +41,6 @@ class PersonTask(Resource):
         data=cursor.execute('select *From PersonTable ')
         query_results=[dict(line) for line in [zip([column[0] for column in cursor.description], row) for row in cursor.fetchall()]]
         return query_results
-api.add_resource(HelloWorld , "/helloworld/<string:name>")
 api.add_resource(PersonList, "/personlist/<string:name>")
 api.add_resource(PersonTask, "/persontask")
 if __name__=="__main__":
